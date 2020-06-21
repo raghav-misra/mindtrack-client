@@ -1,5 +1,5 @@
 <template>
-    <b-progress :value="animatedValue" show-value :format="format"></b-progress>
+    <b-progress :value="animatedValue" show-value :format="format" type="is-info"></b-progress>
 </template>
 
 <script lang="ts">
@@ -31,6 +31,14 @@ export default Vue.extend({
 });
 </script>
 
-<style scoped>
+<style>
+.progress-wrapper > .progress-value {
+    font-size: 1rem;
+    top: 12.5%;
+    color: rgb(21, 38, 46);
+}
 
+.progress-wrapper > progress {
+    height: 1.5rem;
+}
 </style>

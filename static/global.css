@@ -1,9 +1,18 @@
+* { font-family: "Open Sans", sans-serif; }
+
+/* Flexbox utilities (cause idk the bulma ones) */
+.d-flex { display: flex; }
+.flex-1 { flex: 1; }
+.flex-direction-column { flex-direction: column; }
+.justify-content-center { justify-content: center; }
+.align-items-center { align-items: center; }
+
+
 /* Page change transition */
 .page-enter-active,
 .page-leave-active {
     transition: opacity .5s
 }
-
 .page-enter,
 .page-leave-active {
     opacity: 0

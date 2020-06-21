@@ -1,6 +1,6 @@
 <template>
   <section class="container track-listing">
-    <p class="title is-3">{{ title }}</p>
+    <p class="title is-4">{{ title }}</p>
     <p class="subtitle is-5">By {{ author }}</p>
     <AnimatedProgress :value="(completed/total) * 100" show-value format="percent" />
     <b-button tag="nuxt-link" :to="{ path: `/track/${trackID}` }">View</b-button>

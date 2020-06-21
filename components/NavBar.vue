@@ -21,7 +21,7 @@
 
         <template slot="end">
             <b-navbar-item tag="div" v-if="isLoggedIn">
-                <p>Hey {{ username }}!</p>
+                <p id="userGreeting">Hey <b>{{ username }}</b>!</p>
                 <div class="buttons">
                     <div class="field has-addons">
                         <p class="control">
@@ -72,4 +72,12 @@ export default Vue.extend({
 </script>
 
 <style scoped>
+#userGreeting {
+    margin-right: 0.5rem;
+}
+
+nav {
+    padding: 1rem 0.25rem;
+    border-bottom: 1px solid black;
+}
 </style>

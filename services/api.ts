@@ -1,35 +1,8 @@
 const ENDPOINT = "http://localhost:8080/api";
 
-export interface IAPIResponse {
-    success: boolean,
-    error?: string,
-}
+import * as Types from "@/app";
 
-export interface IAuthResponse extends IAPIResponse {
-    token?: string
-}
-
-export interface IUserDataResponse extends IAPIResponse {
-    data?: {
-        username: string,
-        fullName: string,
-        userTracks: string[],
-        collabTracks: string[]
-    }
-}
-
-export interface ITrackInfoResponse extends IAPIResponse {
-    data?: {
-        title: string,
-        author: string,
-        subGoals: {
-            completed: number,
-            total: number
-        }
-    }
-}
-
-export async function API_login({ username, password }: Record<string, string>): Promise<IAuthResponse> {
+export async function API_login({ username, password }: Record<string, string>): Promise<Types.IAuthResponse> {
     const rawResponse = await fetch(`${ENDPOINT}/login`, {
         method: "POST",
         body: JSON.stringify({ username, password }),
@@ -40,7 +13,7 @@ export async function API_login({ username, password }: Record<string, string>):
     return response;
 }
 
-export async function API_signup({ username, password, name }: Record<string, any>): Promise<IAuthResponse> {
+export async function API_signup({ username, password, name }: Record<string, any>): Promise<Types.IAuthResponse> {
     const rawResponse = await fetch(`${ENDPOINT}/signup`, {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
@@ -51,7 +24,7 @@ export async function API_signup({ username, password, name }: Record<string, an
     return response;
 }
 
-export async function API_getUserData(token: string): Promise<IUserDataResponse> {
+export async function API_getUserData(token: string): Promise<Types.IUserDataResponse> {
     const rawResponse = await fetch(`${ENDPOINT}/getUser`, {
         headers: {
             "Content-Type": "application/json",
@@ -64,7 +37,7 @@ export async function API_getUserData(token: string): Promise<IUserDataResponse>
     return response;
 }
 
-export async function API_getTrackInfo(trackID: string, token: string): Promise<ITrackInfoResponse> {
+export async function API_getTrackInfo(trackID: string, token: string): Promise<Types.ITrackInfoResponse> {
     const rawResponse = await fetch(`${ENDPOINT}/getTrackInfo`, {
         headers: {
             "Content-Type": "application/json",

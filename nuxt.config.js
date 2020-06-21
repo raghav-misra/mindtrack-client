@@ -23,6 +23,10 @@ export default {
       rel: 'stylesheet',
       type: 'text/css',
       href: '/global.css'
+    }, {
+      rel: 'stylesheet',
+      type: 'text/css',
+      href: 'https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap'
     }]
   },
   pageTransition: "page",
