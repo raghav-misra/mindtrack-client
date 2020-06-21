@@ -1,53 +1,22 @@
 <template>
-  <section class="section">
-    <div class="columns is-mobile">
-      <card
-        title="Free"
-        icon="github"
-      >
-        Open source on <a href="https://github.com/buefy/buefy">
-          GitHub
-        </a>
-      </card>
-
-      <card
-        title="Responsive"
-        icon="cellphone-link"
-      >
-        <b class="has-text-grey">
-          Every
-        </b> component is responsive
-      </card>
-
-      <card
-        title="Modern"
-        icon="alert-decagram"
-      >
-        Built with <a href="https://vuejs.org/">
-          Vue.js
-        </a> and <a href="http://bulma.io/">
-          Bulma
-        </a>
-      </card>
-
-      <card
-        title="Lightweight"
-        icon="arrange-bring-to-front"
-      >
-        No other internal dependency
-      </card>
-    </div>
-  </section>
+  <div>
+    <Header title="Mindtrack.gg" subtitle="like and subscribe" className="is-primary is-fullheight"></Header>
+  
+  </div>
 </template>
 
 <script>
-import Card from '~/components/Card'
+import Header from "@/components/Header.vue";
+import TrackListing from "@/components/TrackListing.vue";
+import Vue from "vue";
 
-export default {
-  name: 'HomePage',
+export default Vue.extend({
+    components: { Header, TrackListing },
 
-  components: {
-    Card
-  }
-}
+    async created() {
+        if (!this.$store.state.userData._dataLoaded && sessionStorage.getItem("token")) {
+            await this.$store.dispatch("userData/sync", sessionStorage.getItem("token"));
+        }
+    }
+})
 </script>
