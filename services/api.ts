@@ -49,3 +49,16 @@ export async function API_getTrackInfo(trackID: string, token: string): Promise<
     const response = await rawResponse.json();
     return response;
 }
+
+export async function API_getFullTrackData(trackID: string, token: string): Promise<Types.IFullTrackDataResponse> {
+    const rawResponse = await fetch(`${ENDPOINT}/getAllTrackInfo`, {
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+        },
+        method: "POST",
+        body: JSON.stringify({ trackID })
+    });
+    const response = await rawResponse.json();
+    return response;
+}

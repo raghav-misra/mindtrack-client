@@ -5,7 +5,9 @@
     <footer class="footer">
       <div class="content has-text-centered">
         <p>
-          <strong>Mindtrack</strong> by <a href="http://github.com/LehuyH" data="_blank">LehuyH</a> & <a href="http://github.com/raghav-misra" data="_blank">RaghavM</a>
+          <strong>Mindtrack</strong> by 
+          <a href="http://github.com/LehuyH" target="_blank">LehuyH</a> & 
+          <a href="http://github.com/raghav-misra" target="_blank">raghavm</a>
         </p>
       </div>
     </footer>

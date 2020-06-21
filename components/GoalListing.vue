@@ -1,60 +1,81 @@
 <template>
-    <section>
-
-        <div class="card">
-            <header class="card-header">
-                <p class="card-header-title">
-                   {{ goal }}
-                </p>
-                 <p class="subtitle is-4">
-                   Assigned to: {{ assigned }}
-                 </p>
-                <a href="#collapsible-card" data-action="collapse" class="card-header-icon is-hidden-fullscreen"
-                    aria-label="more options">
-                    <span class="icon">
-                        <i class="fas fa-angle-down" aria-hidden="true"></i>
-                    </span>
-                </a>
-            </header>
-            <div id="collapsible-card" class="is-collapsible is-active">
-                <div class="card-content">
-                    <p class="title is-4">
-                        “There are two hard things in computer science: cache invalidation, naming things, and
-                        off-by-one
-                        errors.”
-                    </p>
-                    <p class="subtitle is-5">
-                        Jeff Atwood
-                    </p>
-                </div>
-                <footer class="card-footer">
-                    <p class="card-footer-item">
-                        <span>
-                            View on <a href="https://twitter.com/codinghorror/status/506010907021828096">Twitter</a>
-                        </span>
-                    </p>
-                    <p class="card-footer-item">
-                        <span>
-                            Share on <a href="#">Facebook</a>
-                        </span>
-                    </p>
-                </footer>
+    <div :class="`app-card has-text-centered ${isDark && 'edit-mode'}`">
+        <div class="app-card-header">
+            <div>
+                <input class="is-size-4 title-input" :disabled="disableInputs" v-model="title"><br>
+                <small>Assigned To: <b>{{ goal.assigned }}</b></small>
+            </div>
+            <div>
+                <textarea class="is-size-6" v-model="details"></textarea>
             </div>
         </div>
-    </section>
+        <div v-if="editMode">
+            <b-button @click="finish" type="is-success">Finish Goal</b-button>
+            <b-button @click="remove" type="is-danger">Delete Goal</b-button>
+        </div>
+    </div>
 </template>
-
 
 <script lang="ts">
     import Vue from "vue";
 
     export default Vue.extend({
         props: {
-            title: String,
-            assigned: String
+            goal: Object,
+            editMode: { type: Boolean, default: false },
+            darkTheme: Boolean
+        },
+        data() {
+            return {
+                title: this.goal.title,
+                details: this.goal.details,
+                completed: this.goal.completed
+            };
+        },
+        methods: {
+            finish() { this.goal.completed = true; },
+            remove() { this.$emit("remove", this.goal.staticIndex); },
+            update() { this.$emit("update", this.goal.staticIndex, { ...this.goal, title: this.title, details: this.details, completed: this.completed }); }
+        },
+        computed: {
+            isDark(): boolean { return this.editMode || this.darkTheme; },
+            disableInputs(): boolean { return !this.editMode; }
+        },
+        watch: {
+            title() { this.update(); },
+            details() { this.update(); },
+            completed() { this.update(); },
         }
     });
 </script>
 
 <style scoped>
+.app-card {
+    padding: 0.25rem 0;
+    padding-bottom: 1rem;
+    border: 0.5px solid rgb(37, 56, 71);
+    border-radius: 5px;
+    text-align: center;
+    margin: 2rem;
+}
+
+.app-card-header {
+    margin: 1rem;
+}
+.edit-mode input, .edit-mode textarea{
+    background: none;
+    color: white;
+}
+
+.edit-mode.app-card {
+    border-color: white;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 0.125rem;
+    margin: 0.5rem;
+    border: none;
+    text-align: center;
+}
 </style>

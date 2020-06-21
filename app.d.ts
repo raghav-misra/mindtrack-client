@@ -2,15 +2,15 @@ export interface ISubGoal {
     title: string,
     assigned: string,
     details: string,
-    status: string,
+    staticIndex: number,
     completed: boolean
 }
 
 export interface IGoal {
     title: string,
-    author: string, 
-    collaborators: string[],
-    subGoals: ISubGoal[]
+    author: string,
+    subGoals: ISubGoal[],
+    obstacles: string[]
 }
 
 export interface IAPIResponse {
@@ -42,4 +42,17 @@ export interface ITrackInfo {
 
 export interface ITrackInfoResponse extends IAPIResponse {
     data?: ITrackInfo
+}
+
+export interface IFullTrackData {
+    title: string,
+    author: string,
+    subGoals: {
+        completed: number,
+        total: number
+    }
+}
+
+export interface IFullTrackDataResponse extends IAPIResponse {
+    data?: IFullTrackData
 }
