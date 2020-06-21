@@ -7,12 +7,12 @@
         <hr>
         <div v-show="userTracksLoaded">
             <TrackListing
-            v-for="(track, i) in userTracks" :key="i"
-            :title="track.title"
-            :completed="track.subGoals.completed"
-            :total="track.subGoals.total"
-            :author="track.author"
-            :trackID="track.id"
+                v-for="(track, i) in userTracks" :key="i"
+                :title="track.title"
+                :completed="track.subGoals.completed"
+                :total="track.subGoals.total"
+                :author="track.author"
+                :trackID="track.id"
             />
         </div>
         <div v-if="!userTracksLoaded" class="container">
@@ -28,12 +28,12 @@
         <hr>
         <div v-show="collabTracksLoaded">
             <TrackListing
-            v-for="(track, i) in collabTracks" :key="i"
-            :title="track.title"
-            :completed="track.subGoals.completed"
-            :total="track.subGoals.total"
-            :author="track.author"
-            :trackID="track.id"
+                v-for="(track, i) in collabTracks" :key="i"
+                :title="track.title"
+                :completed="track.subGoals.completed"
+                :total="track.subGoals.total"
+                :author="track.author"
+                :trackID="track.id"
             />
         </div>
         <div v-if="!collabTracksLoaded" class="container">
@@ -63,11 +63,6 @@ export default Vue.extend({
     components: { Header, TrackListing },
 
     async created() {
-        // Fetch user data:
-        if (!this.$store.state.userData._dataLoaded && sessionStorage.getItem("token")) {
-            await this.$store.dispatch("userData/sync", sessionStorage.getItem("token"));
-        }
-
         // No access if not logged in:
         if (sessionStorage.getItem("token") === null) { this.$router.push({ path: "/" }); return; }
 

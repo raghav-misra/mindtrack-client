@@ -1,4 +1,5 @@
 import { API_getUserData } from "@/services/api";
+import { logOut, serverError } from "@/services/utils";
 
 export const state = () => ({
         _dataLoaded: false,
@@ -19,12 +20,23 @@ export const mutations = {
 };
 
 export const actions = {
-    sync: async ({ commit }: Record<string, Function>, token: string) => {
-        const response = await API_getUserData(token);
-        if (!response.success) alert(`An error occurred: ${response.error || "Unknown, please try again."}`);
-        Object.keys(response.data as object).forEach(k => {
-            commit("setValue", [k, (response.data as Record<string, any>)[k]]);
-        });
-        commit("setValue", ["_dataLoaded", true]);
+    sync: async ({ commit }: Record<string, any>, vm: Vue) => {
+        if (!vm.$store.state.userData._dataLoaded && sessionStorage.getItem("token")) {
+            const response = await API_getUserData(sessionStorage.getItem("token") as string);
+            if (!response.success) {
+                serverError({
+                    server: response.error as string
+                }, vm);
+                if ((response.error as string).includes("Login expired")) {
+                    logOut(vm);
+                }
+            }
+            else {
+                Object.keys(response.data as object).forEach(k => {
+                    commit("setValue", [k, (response.data as Record<string, any>)[k]]);
+                });
+                commit("setValue", ["_dataLoaded", true]);
+            }
+        }
     }
 }

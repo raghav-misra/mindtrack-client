@@ -1,8 +1,10 @@
 <template>
   <div>
     <NavBar />
-    <Nuxt />
-    <footer class="footer">
+    <div id="currentView">
+        <Nuxt />
+    </div>
+    <footer class="section">
       <div class="content has-text-centered">
         <p>
           <strong>Mindtrack</strong> by 
@@ -22,8 +24,27 @@
   import NavBar from "@/components/NavBar.vue";
 
   export default Vue.extend({
-    components: {
-      NavBar
+    components: { NavBar },
+    async beforeCreate() {
+        // Fetch user data:
+        // await this.$store.dispatch("userData/sync", this);
     }
   });
 </script>
+
+<style>
+/* Flexboxify the body */
+html, body, #__nuxt, #__layout, #__layout > div {
+    min-height: 100vh;
+}
+#__layout > div {
+    display: flex;
+    flex-direction: column;
+}
+#currentView {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+</style>

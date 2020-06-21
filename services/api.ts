@@ -62,3 +62,42 @@ export async function API_getFullTrackData(trackID: string, token: string): Prom
     const response = await rawResponse.json();
     return response;
 }
+
+export async function API_editTrackData(newData: Types.IFullTrackData, trackID: string, token: string): Promise<Types.IAPIResponse> {
+    const rawResponse = await fetch(`${ENDPOINT}/editTrack`, {
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+        },
+        method: "POST",
+        body: JSON.stringify({ trackID, newData })
+    });
+    const response = await rawResponse.json();
+    return response;
+}
+
+export async function API_deleteTrack(trackID: string, token: string): Promise<Types.IAPIResponse> {
+    const rawResponse = await fetch(`${ENDPOINT}/deleteTrack`, {
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+        },
+        method: "POST",
+        body: JSON.stringify({ trackID })
+    });
+    const response = await rawResponse.json();
+    return response;
+}
+
+export async function API_addCollaborator(trackID: string, username: string, token: string): Promise<Types.IAPIResponse> {
+    const rawResponse = await fetch(`${ENDPOINT}/addCollab`, {
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+        },
+        method: "POST",
+        body: JSON.stringify({ trackID, username })
+    });
+    const response = await rawResponse.json();
+    return response;
+}

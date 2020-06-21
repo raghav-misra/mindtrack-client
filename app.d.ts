@@ -48,9 +48,12 @@ export interface IFullTrackData {
     title: string,
     author: string,
     subGoals: {
-        completed: number,
-        total: number
-    }
+        title: string,
+        assigned: string,
+        details: string,
+        completed: boolean
+    }[]
+        
 }
 
 export interface IFullTrackDataResponse extends IAPIResponse {

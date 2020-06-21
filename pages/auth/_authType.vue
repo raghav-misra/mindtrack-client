@@ -40,7 +40,7 @@
 <script lang="ts">
 import Vue from "vue";
 import Header from "@/components/Header.vue";
-import { isEmpty } from "@/services/utils";
+import { isEmpty, serverError } from "@/services/utils";
 import { API_signup, API_login } from "@/services/api";
 
 export default Vue.extend({
@@ -60,13 +60,6 @@ export default Vue.extend({
         headerTitle(): string { return this.authType === "login" ? "Welcome back!" : "Welcome to MindTrack!" },
         headerSubtitle(): string { return this.authType === "login" ? "We've been expecting you..." : "Sign up for an account here!" }
     },
-
-    async created() {
-        if (!this.$store.state.userData._dataLoaded && sessionStorage.getItem("token")) {
-            await this.$store.dispatch("userData/sync", sessionStorage.getItem("token"));
-        }
-    },
-
     methods: {
         async signup() {
             // Validation 
@@ -83,7 +76,9 @@ export default Vue.extend({
             // Send signup request:
             const signupResponse = await API_signup({ username: this.signupUsername, password: this.signupPassword, name: this.signupName });
             if (!signupResponse.success) {
-                alert(`An error occurred: ${signupResponse.error || "Unknown, please try again."}`);
+                serverError({
+                    server: signupResponse.error as string
+                }, this);
                 return;
             }
 
@@ -104,7 +99,9 @@ export default Vue.extend({
             // Send login request:
             const loginResponse = await API_login({ username: this.loginUsername, password: this.loginPassword }); 
             if (!loginResponse.success) {
-                alert(`An error occurred: ${loginResponse.error || "Unknown, please try again."}`);
+                serverError({
+                    server: loginResponse.error as string
+                }, this);
                 return;
             }
 

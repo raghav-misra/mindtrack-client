@@ -17,3 +17,13 @@
 .page-leave-active {
     opacity: 0
 }
+
+.progress-wrapper > .progress-value {
+  font-size: 1rem;
+  top: 12.5%;
+  color: rgb(21, 38, 46);
+}
+
+.progress-wrapper > progress {
+  height: 1.5rem;
+}

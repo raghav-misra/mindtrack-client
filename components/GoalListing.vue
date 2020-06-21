@@ -17,36 +17,36 @@
 </template>
 
 <script lang="ts">
-    import Vue from "vue";
+import Vue from "vue";
 
-    export default Vue.extend({
-        props: {
-            goal: Object,
-            editMode: { type: Boolean, default: false },
-            darkTheme: Boolean
-        },
-        data() {
-            return {
-                title: this.goal.title,
-                details: this.goal.details,
-                completed: this.goal.completed
-            };
-        },
-        methods: {
-            finish() { this.goal.completed = true; },
-            remove() { this.$emit("remove", this.goal.staticIndex); },
-            update() { this.$emit("update", this.goal.staticIndex, { ...this.goal, title: this.title, details: this.details, completed: this.completed }); }
-        },
-        computed: {
-            isDark(): boolean { return this.editMode || this.darkTheme; },
-            disableInputs(): boolean { return !this.editMode; }
-        },
-        watch: {
-            title() { this.update(); },
-            details() { this.update(); },
-            completed() { this.update(); },
-        }
-    });
+export default Vue.extend({
+    props: {
+        goal: Object,
+        editMode: { type: Boolean, default: false },
+        darkTheme: Boolean
+    },
+    data() {
+        return {
+            title: this.goal.title,
+            details: this.goal.details,
+            completed: this.goal.completed
+        };
+    },
+    methods: {
+        finish() { this.goal.completed = true; },
+        remove() { this.$emit("remove", this.goal.staticIndex); },
+        update() { this.$emit("update", this.goal.staticIndex, { ...this.goal, title: this.title, details: this.details, completed: this.completed }); }
+    },
+    computed: {
+        isDark(): boolean { return this.editMode || this.darkTheme; },
+        disableInputs(): boolean { return !this.editMode; }
+    },
+    watch: {
+        title() { this.update(); },
+        details() { this.update(); },
+        completed() { this.update(); },
+    }
+});
 </script>
 
 <style scoped>

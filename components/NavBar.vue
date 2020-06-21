@@ -25,7 +25,7 @@
         <div class="buttons">
           <div class="field has-addons">
             <p class="control">
-              <b-button tag="button" type="is-danger" @click="logOut">
+              <b-button tag="button" type="is-danger" @click="appLogOut">
                 <strong>Logout</strong>
               </b-button>
             </p>
@@ -52,6 +52,7 @@
 
 <script lang="ts">
 import Vue from "vue";
+import { logOut } from "@/services/utils";
 
 export default Vue.extend({
   computed: {
@@ -63,11 +64,8 @@ export default Vue.extend({
     }
   },
   methods: {
-    logOut() {
-      this.$store.commit("logOut");
-      this.$store.commit("userData/clear");
-      sessionStorage.clear();
-      this.$router.push({ path: "/" });
+    appLogOut() {
+      logOut(this);
     }
   }
 });
