@@ -5,6 +5,7 @@
                 {{ goal.title }}
                 <div class="modify-buttons">
                     <b-button type="is-success" @click="save">Save Track</b-button>
+                    <b-button type="is-success" @click="addCollab">Add Member</b-button>
                     <b-button type="is-primary" @click="editMode = !editMode">Editor Mode: {{ editMode ? "on" : "off" }}</b-button>
                     <b-button type="is-danger" @click="deleteTrack" v-if="isOwner">Delete Track</b-button>
                 </div>
@@ -143,7 +144,10 @@ export default Vue.extend({
 				subGoal
 			);
 			this.isChanged = true;
-		},
+        },
+        addTeam() {
+            
+        },
 		removeAtIndex(staticIndex: number) {
 			const removeIndex = this.goal.subGoals.findIndex(
 				s => s.staticIndex === staticIndex
@@ -204,7 +208,7 @@ export default Vue.extend({
                 location.href = "/dashboard";
             }
         }
-	}
+    },
 });
 </script>
 

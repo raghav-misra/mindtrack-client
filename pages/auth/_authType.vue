@@ -108,9 +108,10 @@ export default Vue.extend({
             // Successful so far!
             this.onLogin(loginResponse.token as string);
         },
-        onLogin(token: string) {
+        async onLogin(token: string) {
             sessionStorage.setItem("token", token);
             this.$store.commit("logIn");
+            await this.$store.dispatch("userData/sync", this);
             this.$router.push({ path: "/dashboard" });
         }
     },

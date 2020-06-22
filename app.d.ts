@@ -9,8 +9,7 @@ export interface ISubGoal {
 export interface IGoal {
     title: string,
     author: string,
-    subGoals: ISubGoal[],
-    obstacles: string[]
+    subGoals: ISubGoal[]
 }
 
 export interface IAPIResponse {

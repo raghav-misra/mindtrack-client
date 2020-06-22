@@ -27,7 +27,7 @@
     components: { NavBar },
     async beforeCreate() {
         // Fetch user data:
-        // await this.$store.dispatch("userData/sync", this);
+        await this.$store.dispatch("userData/sync", this);
     }
   });
 </script>

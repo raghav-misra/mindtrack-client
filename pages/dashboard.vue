@@ -2,7 +2,12 @@
     <section class="section">
         <h1 class="title is-2 level">
             Your Tracks
-            <b-button type="is-success"><h1>New Track <b>+</b></h1></b-button>
+            <b-button 
+                type="is-success" 
+                tag="nuxt-link" :to="{ path: '/track/new' }"
+            >
+                <h1>New Track <b>+</b></h1>
+            </b-button>
         </h1>
         <hr>
         <div v-show="userTracksLoaded">
@@ -63,12 +68,16 @@ export default Vue.extend({
     components: { Header, TrackListing },
 
     async created() {
+        await this.$store.dispatch("userData/sync", this);
+
         // No access if not logged in:
         if (sessionStorage.getItem("token") === null) { this.$router.push({ path: "/" }); return; }
 
         // Fetch the user tracks:
+        console.log(this.$store.state.userData.userTracks.length)
         for await(let id of this.$store.state.userData.userTracks) {
             const track = await this.getTrack(id);
+            console.log(track);
             this.userTracks.push(track.data as ITrackInfo);
         }
         setTimeout(this.showUserTracks, 250);
